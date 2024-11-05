@@ -1,0 +1,33 @@
+4. write a program in solidity to create student data. use the following contracts
+   structures, array, fallback
+   deploy this as smart contract on Ethereum and observe transaction
+
+pragma solidity ^0.8.1;
+
+struct Student {
+    string name;
+    string class;
+    uint prn;
+}
+
+contract studentData {
+    mapping (uint => Student) Students;
+    Student [] studs ;
+    Student newStudent ;
+
+    function addStudent(string memory _name, string memory _class, uint _prn) public {
+        newStudent.name = _name;
+        newStudent.class = _class;
+        newStudent.prn = _prn;
+        Students[newStudent.prn] = newStudent;
+    }
+
+    function getStudentDetails(uint _prn) public view returns (Student memory){
+        return Students[_prn];
+    }
+
+    receive() external payable { }
+    fallback() external payable { 
+        payable(msg.sender).transfer(msg.value);
+    }
+}

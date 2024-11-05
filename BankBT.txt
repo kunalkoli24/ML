@@ -1,0 +1,28 @@
+3. write a smart contract on a test network for bank account of a customer for the following operations
+   a. Deposite Money
+   b. Withdraw Money
+   c. Show Balance
+
+// SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.1;
+contract SendMoneyExample {
+    uint public balanceReceived;
+    function receiveMoney() public payable {
+        balanceReceived += msg.value;
+    }
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+    function withdrawMoney() public {
+        address payable to = payable(msg.sender);
+        to.transfer(getBalance());
+        balanceReceived = 0;
+    }
+    function withdrawMoneyTo(address payable _to) public {
+        _to.transfer(getBalance());
+        balanceReceived = 0;
+    }
+    constructor() payable {
+    }
+}
